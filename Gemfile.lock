@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    md-to-notion (0.1.0)
+    md_to_notion (0.1.3)
 
 GEM
   remote: https://rubygems.org/
@@ -54,7 +54,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  md-to-notion!
+  md_to_notion!
   pry
   rake (~> 13.0)
   rspec (~> 3.0)
