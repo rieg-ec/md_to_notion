@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "./tokens"
 
 module MdToNotion
@@ -72,7 +74,7 @@ module MdToNotion
     end
 
     def tokenize_block_code
-      raise InvalidTokenSyntaxError, "Invalid code block: #{@markdown[@index..-1]}" \
+      raise InvalidTokenSyntaxError, "Invalid code block: #{@markdown[@index..]}" \
         unless @markdown[@index..] =~ CODE_BLOCK
 
       @tokens << code_block(::Regexp.last_match(0))

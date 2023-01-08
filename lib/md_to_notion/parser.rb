@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "./lexer"
 require_relative "./blocks"
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MdToNotion
   module Block
     def self.heading_1(texts)

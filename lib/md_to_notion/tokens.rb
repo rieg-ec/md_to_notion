@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module MdToNotion
   module Tokens
-    HEADING_1 = /^# (.+)/
-    HEADING_2 = /^## (.+)/
-    HEADING_3 = /^### (.+)/
-    CODE_BLOCK = /^```(?:[^\n]+\n)?(.+?)\n```$/m
-    BULLET_LIST = /^- (.+)/
-    NUMBERED_LIST = /^([0-9]+)\. (.+)/
-    IMAGE = /!\[([^\]]+)\]\(([^)]+)\)/
-    QUOTE = /^> (.+)/
+    HEADING_1 = /^# (.+)/.freeze
+    HEADING_2 = /^## (.+)/.freeze
+    HEADING_3 = /^### (.+)/.freeze
+    CODE_BLOCK = /^```(?:[^\n]+\n)?(.+?)\n```$/m.freeze
+    BULLET_LIST = /^- (.+)/.freeze
+    NUMBERED_LIST = /^([0-9]+)\. (.+)/.freeze
+    IMAGE = /!\[([^\]]+)\]\(([^)]+)\)/.freeze
+    QUOTE = /^> (.+)/.freeze
 
     def heading_1(match)
       { type: :heading_1, rich_texts: tokenize_rich_text(match.gsub(/^# /, "")) }
