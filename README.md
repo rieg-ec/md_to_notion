@@ -1,8 +1,8 @@
-# MdToNotion
+# MdToNotion: Markdown to Notion
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/md_to_notion`. To experiment with that code, run `bin/console` for an interactive prompt.
+Dependency-free gem to convert markdown and GitHub flavoured Markdown to Notion API blocks and richtext.
 
-TODO: Delete this and the text above, and describe your gem
+NOTE: this is a work in progress. It works for simple markdown, but has not been tested with all markdown syntax.
 
 ## Installation
 
@@ -16,7 +16,130 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+MdToNotion::Parser.markdown_to_notion_blocks(
+  "# heading 1"
+)
+```
+
+<details>
+<summary>result</summary>
+
+```json
+{
+    "type": "heading_1",
+    "heading_1": {
+      "rich_text": [
+        {
+          "type": "text",
+          "text": {
+            "content": "heading 1",
+            "link": null
+          },
+          "annotations": {
+            "bold": false,
+            "italic": false,
+            "strikethrough": false,
+            "underline": false,
+            "code": false
+          },
+          "href": null
+        }
+      ]
+    }
+  }
+```
+</details>
+
+<br>
+
+```ruby
+MdToNotion::Parser.markdown_to_notion_blocks(
+  "> quote with *italic"
+)
+```
+<details>
+<summary>result</summary>
+
+```json
+{
+  "type": "quote",
+  "quote": {
+    "rich_text": [
+      {
+        "type": "text",
+        "text": {
+          "content": "quote with ",
+          "link": null
+        },
+        "annotations": {
+          "bold": false,
+          "italic": false,
+          "strikethrough": false,
+          "underline": false,
+          "code": false
+        },
+        "href": null
+      },
+      {
+        "type": "text",
+        "text": {
+          "content": "italic",
+          "link": null
+        },
+        "annotations": {
+          "bold": false,
+          "italic": true,
+          "strikethrough": false,
+          "underline": false,
+          "code": false
+        },
+        "href": null
+      }
+    ]
+  }
+}
+```
+</details>
+
+<br>
+
+```ruby
+MdToNotion::Parser.markdown_to_notion_blocks <<~CODE
+``ruby
+puts 'it works with code blocks too!'
+``
+CODE
+```
+<details>
+<summary>result</summary>
+
+```json
+{
+  "type": "code",
+  "code": {
+    "rich_text": [
+      {
+        "type": "text",
+        "text": {
+          "content": "puts 'it works with code blocks too!'",
+          "content": null
+        },
+        "annotations": {
+          "bold": false,
+          "italic": false,
+          "strikethrough": false,
+          "underline": false,
+          "code": false
+        },
+        "href": null
+      }
+    ],
+    "language": "ruby"
+  }
+}
+```
+</details>
 
 ## Development
 
@@ -26,7 +149,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/md_to_notion.
+Bug reports and pull requests are welcome on GitHub at https://github.com/rieg-ec/md_to_notion.
 
 ## License
 
