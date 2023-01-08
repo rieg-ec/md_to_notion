@@ -3,7 +3,7 @@
 require_relative "lib/md_to_notion/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "md-to-notion"
+  spec.name = "md_to_notion"
   spec.version = MdToNotion::VERSION
   spec.authors = ["rieg-ec"]
   spec.email = ["rieg.10199@gmail.com"]
