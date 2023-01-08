@@ -33,7 +33,10 @@ module MdToNotion
         when :numbered_list
           Block.numbered_list(token[:rich_texts])
         when :image
-          Block.image(token[:text], token[:rich_texts])
+          Block.file(token[:url], type: "image")
+        when :embeded_file
+          # @TODO support more file types
+          Block.file(token[:url], type: "video")
         when :quote
           Block.quote(token[:rich_texts])
         end

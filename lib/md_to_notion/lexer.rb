@@ -6,6 +6,10 @@ module MdToNotion
   class Lexer
     include Tokens
 
+    ALLOWED_VIDEO_EMBED_URLS = [
+      "https://user-images.githubusercontent.com/"
+    ]
+
     class InvalidTokenSyntaxError < StandardError; end
 
     def initialize(markdown)
@@ -29,6 +33,8 @@ module MdToNotion
             tokenize_link
           elsif next_char == "!"
             tokenize_image
+          elsif ALLOWED_VIDEO_EMBED_URLS.join("").include?(peek(41))
+            tokenize_embeded_file
           elsif next_char == ">"
             tokenize_quote
           elsif next_char == "-"
@@ -109,6 +115,22 @@ module MdToNotion
 
       @tokens << image(::Regexp.last_match(0))
       @index += ::Regexp.last_match(0).length
+    end
+
+    def tokenize_embeded_file
+      line = @markdown[@index..].split("\n").first
+      match = nil
+      EMBED_FILE_REGEXES.each do |regex|
+        if line =~ regex
+          match = ::Regexp.last_match(0)
+          break
+        end
+      end
+
+      raise InvalidTokenSyntaxError, "Invalid embed file syntax: #{line}" unless match
+
+      @tokens << embeded_file(match)
+      @index += match.length
     end
 
     def tokenize_quote
