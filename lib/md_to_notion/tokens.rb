@@ -10,6 +10,8 @@ module MdToNotion
     NUMBERED_LIST = /^([0-9]+)\. (.+)/.freeze
     IMAGE = /!\[([^\]]+)\]\(([^)]+)\)/.freeze
     QUOTE = /^> (.+)/.freeze
+    GH_EMBED_FILE = %r{https://user-images\.githubusercontent\.com/.+\.[a-zA-Z]+}.freeze
+    EMBED_FILE_REGEXES = [GH_EMBED_FILE].freeze
 
     def heading_1(match)
       { type: :heading_1, rich_texts: tokenize_rich_text(match.gsub(/^# /, "")) }
@@ -51,8 +53,7 @@ module MdToNotion
     def image(match)
       {
         type: :image,
-        rich_texts: tokenize_rich_text(match.gsub(/!\[([^\]]+)\]\(([^)]+)\)/, '\1')),
-        link: match.gsub(/!\[([^\]]+)\]\(([^)]+)\)/, '\2')
+        url: match.gsub(/!\[([^\]]+)\]\(([^)]+)\)/, '\2')
       }
     end
 
@@ -62,6 +63,13 @@ module MdToNotion
 
     def quote(match)
       { type: :quote, rich_texts: tokenize_rich_text(match.gsub(/^> /, "")) }
+    end
+
+    def embeded_file(match)
+      {
+        type: :embeded_file,
+        url: match
+      }
     end
 
     ## rich text objects

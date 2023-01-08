@@ -176,5 +176,23 @@
       ],
       "language": "c"
     }
+  },
+  {
+    "type": "video",
+    "video": {
+      "type": "external",
+      "external": {
+        "url": "https://user-images.githubusercontent.com/58893812/211213302-7f38960c-dd35-4955-8115-166f83d9c3ed.mov"
+      }
+    }
+  },
+  {
+    "type": "image",
+    "image": {
+      "type": "external",
+      "external": {
+        "url": "https://image.jpeg"
+      }
+    }
   }
 ]

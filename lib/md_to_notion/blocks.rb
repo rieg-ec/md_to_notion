@@ -87,13 +87,13 @@ module MdToNotion
       block
     end
 
-    def self.image
+    def self.file(url, type:)
       {
-        type: "image",
-        image: {
+        type: type,
+        "#{type}": {
           type: "external",
           external: {
-            url: link
+            url: url
           }
         }
       }
