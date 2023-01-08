@@ -1,5 +1,4 @@
 require "json"
-require "rspec/json_expectations"
 
 require "spec_helper"
 require "md_to_notion/parser"
